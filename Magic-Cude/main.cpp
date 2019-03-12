@@ -3,13 +3,7 @@
 
 GLboolean bWire = false;
 
-void init(void)
-{
-	glClearColor(1.0, 1.0, 1.0, 0.0); //窗口颜色(红:[0.0~1.0]R, 绿:[0.0~1.0]G，蓝:[0.0~1.0]B, 透明度:[0.0~1.0]A)
-									  /*使用正投影将世界坐标系二位矩形区域的内容映射到屏幕上，区域的x坐标值从0.0到200.0，y坐标值从0.0到150.0*/
-	glMatrixMode(GL_PROGRAM);
-	gluOrtho2D(0.0, 200.0, 0.0, 150.0);
-}
+
 
 void OnDisplay(void)
 {
@@ -49,7 +43,7 @@ void OnReshape(int w, int h)
 	gluLookAt(10.0f, 20.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 }
 
-
+//设置光照函数
 void SetupLights()
 {
 	GLfloat ambientLight[] = { 0.2f,  0.2f,  0.2f,  1.0f };//环境光
@@ -75,12 +69,12 @@ int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);//初始化GULT
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);//设置显示模式
-	//glutInitWindowPosition(50, 100);//设置左上角窗口显示位置
+	glutInitWindowPosition(50, 100);//设置左上角窗口显示位置
 	glutInitWindowSize(600, 480);//设置窗口显示的宽与高
 	glutCreateWindow("An Example OpenGL Program！");//创建一个窗口
-	//init();//执行初始化程序
+	
 	glutReshapeFunc(OnReshape);
 	glutDisplayFunc(OnDisplay);//把图形显示在窗口
-	SetupLights();
+	SetupLights();	//调用光照函数，否则会没有立体感
 	glutMainLoop();//显示所有并进入等待状态
 }
