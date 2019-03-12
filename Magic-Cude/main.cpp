@@ -11,19 +11,24 @@ void OnDisplay(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST); //使能深度检测
 
+	//缓存
 	glPushMatrix();
 	
+	//控制颜色
 	glColor3f(1.0f, 0.0f, 0.0f);
 
 	glEnable(GL_NORMALIZE);  //归一化法向量
 
-	glutSolidCone(RADIUS, 2 * RADIUS, 30, 30);
+	//glutSolidCone(RADIUS, 2 * RADIUS, 30, 30);
+	glutSolidCube(1.5 * RADIUS);
 
 	glPopMatrix();
+	
+	//将要画的内容缓冲出来
 	glutSwapBuffers();
 }
 
-
+//窗口自适应函数
 void OnReshape(int w, int h)
 {
 	double SIZE = 100.0f;
