@@ -1,9 +1,21 @@
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
+#include "MagicCude.h"
 
 GLboolean bWire = false;
+int rox[3][3][3] = {};
+int roy[3][3][3] = {};
+int roz[3][3][3] = {};
 
-
+void Draw_Table()
+{
+	//将桌子拆分成5个立方体绘制
+	Draw_Cube(0.0, 1.0, 0.0, 0.8, 0.6, 0.8);//桌面
+	Draw_Cube(0.1, 0.3, 0.1, 0.3, 0.0, 0.6);//四条腿
+	Draw_Cube(0.7, 0.9, 0.1, 0.3, 0.0, 0.6);
+	Draw_Cube(0.1, 0.3, 0.5, 0.7, 0.0, 0.6);
+	Draw_Cube(0.7, 0.9, 0.5, 0.7, 0.0, 0.6);
+}
 
 void OnDisplay(void)
 {
@@ -14,24 +26,105 @@ void OnDisplay(void)
 	//缓存
 	glPushMatrix();
 	
-	//控制颜色
-	glColor3f(1.0f, 0.0f, 0.0f);
+	//原点上的（中间的）Cube (1,1,1)
+	Cube_rate(rox, roy, roz, 1, 1, 1);
+	Draw_Cube(-50.0, 50.0, -50.0, 50.0, -50.0, 50.0);
 
-	glEnable(GL_NORMALIZE);  //归一化法向量
+	glPopMatrix();
 
-	//glutSolidCone(RADIUS, 2 * RADIUS, 30, 30);
-	glutSolidCube(1.5 * RADIUS);
+
+	//缓存
+	glPushMatrix();
+
+	//x轴上两端的Cube (0,1,1)
+	Cube_rate(rox, roy, roz, 0, 1, 1);
+	Draw_Cube(50.0, 150.0, -50.0, 50.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+
+	//缓存
+	glPushMatrix();
+
+	//x轴上两端的Cube (2,1,1)
+	Cube_rate(rox, roy, roz, 2, 1, 1);
+	Draw_Cube(-150.0, -50.0, -50.0, 50.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+
+	//缓存
+	glPushMatrix();
+
+	//y轴上两端的Cube (1,0,1)
+	Cube_rate(rox, roy, roz, 1, 0, 1);
+	Draw_Cube(-50.0, 50.0, 50.0, 150.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+
+	//缓存
+	glPushMatrix();
+
+	//y轴上两端的Cube (1,2,1)
+	Cube_rate(rox, roy, roz, 1, 2, 1);
+	Draw_Cube(-50.0, 50.0, -150.0, -50.0, -50.0, 50.0);
 
 	glPopMatrix();
 	
+	
+	//缓存
+	glPushMatrix();
+
+	//x，y轴上的四个Cube (0,0,1)
+	Cube_rate(rox, roy, roz, 0, 0, 1);
+	Draw_Cube(50.0, 150.0, 50.0, 150.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+
+	//缓存
+	glPushMatrix();
+
+	//x，y轴上的四个Cube (0,2,1)
+	Cube_rate(rox, roy, roz, 0, 2, 1);
+	Draw_Cube(50.0, 150.0, -150.0, -50.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+
+	//缓存
+	glPushMatrix();
+
+	//x，y轴上的四个Cube (2,0,1)
+	Cube_rate(rox, roy, roz, 2, 0, 1);
+	Draw_Cube(-150.0, -50.0, 50.0, 150.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+	
+	//缓存
+	glPushMatrix();
+
+	//x，y轴上的四个Cube (2,2,1)
+	Cube_rate(rox, roy, roz, 2, 2, 1);
+	Draw_Cube(-150.0, -50.0, -150.0, -50.0, -50.0, 50.0);
+
+	glPopMatrix();
+
+	
+
 	//将要画的内容缓冲出来
 	glutSwapBuffers();
 }
 
+
+
+
 //窗口自适应函数
 void OnReshape(int w, int h)
 {
-	double SIZE = 100.0f;
+	double SIZE = 500.0f;
 	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 
@@ -46,6 +139,65 @@ void OnReshape(int w, int h)
 		glOrtho(-SIZE / aspect, SIZE / aspect, -SIZE, SIZE, -SIZE, SIZE);
 	}
 	gluLookAt(10.0f, 20.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+}
+
+void KeyBoard(unsigned char key, int x, int y)
+//必须得有这三个参数
+{
+	switch (key) {
+	case 'a':
+		roy[0][0][1] = (roy[0][0][1] + 90) % 360;
+		roy[1][0][1] = (roy[1][0][1] + 90) % 360;
+		roy[2][0][1] = (roy[2][0][1] + 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'A':
+		roy[0][0][1] = (roy[0][0][1] - 90) % 360;
+		roy[1][0][1] = (roy[1][0][1] - 90) % 360;
+		roy[2][0][1] = (roy[2][0][1] - 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 's':
+		roy[0][1][1] = (roy[0][1][1] + 90) % 360;
+		roy[1][1][1] = (roy[1][1][1] + 90) % 360;
+		roy[2][1][1] = (roy[2][1][1] + 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'S':
+		roy[0][1][1] = (roy[0][1][1] - 90) % 360;
+		roy[1][1][1] = (roy[1][1][1] - 90) % 360;
+		roy[2][1][1] = (roy[2][1][1] - 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'd':
+		roy[0][2][1] = (roy[0][2][1] + 90) % 360;
+		roy[1][2][1] = (roy[1][2][1] + 90) % 360;
+		roy[2][2][1] = (roy[2][2][1] + 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'D':
+		roy[0][1][1] = (roy[0][1][1] - 90) % 360;
+		roy[1][1][1] = (roy[1][1][1] - 90) % 360;
+		roy[2][1][1] = (roy[2][1][1] - 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'e':
+		for (int i = 0; i < 3; i++)
+			for (int j = 0;j < 3;j++)
+				for (int k = 0; k < 3; k++)
+				{
+					rox[i][j][k] = 0;
+					roy[i][j][k] = 0;
+					roz[i][j][k] = 0;
+				}
+		glutPostRedisplay();
+		break;
+	case 27:
+		exit(0);
+		break;
+	default:
+		break;
+	}
 }
 
 //设置光照函数
@@ -75,11 +227,12 @@ int main(int argc, char *argv[])
 	glutInit(&argc, argv);//初始化GULT
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);//设置显示模式
 	glutInitWindowPosition(50, 100);//设置左上角窗口显示位置
-	glutInitWindowSize(600, 480);//设置窗口显示的宽与高
+	glutInitWindowSize(1920, 1080);//设置窗口显示的宽与高
 	glutCreateWindow("An Example OpenGL Program！");//创建一个窗口
 	
 	glutReshapeFunc(OnReshape);
 	glutDisplayFunc(OnDisplay);//把图形显示在窗口
+	glutKeyboardFunc(KeyBoard);
 	SetupLights();	//调用光照函数，否则会没有立体感
 	glutMainLoop();//显示所有并进入等待状态
 }
