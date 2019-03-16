@@ -3,9 +3,7 @@
 #include "MagicCude.h"
 
 GLboolean bWire = false;
-int rox[3][3][3] = {};
-int roy[3][3][3] = {};
-int roz[3][3][3] = {};
+
 
 void Draw_Table()
 {
@@ -19,98 +17,13 @@ void Draw_Table()
 
 void OnDisplay(void)
 {
-	double RADIUS = 50.0f;
+	//double RADIUS = 50.0f;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST); //使能深度检测
 
-	//缓存
-	glPushMatrix();
-	
-	//原点上的（中间的）Cube (1,1,1)
-	Cube_rate(rox, roy, roz, 1, 1, 1);
-	Draw_Cube(-50.0, 50.0, -50.0, 50.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-
-	//缓存
-	glPushMatrix();
-
-	//x轴上两端的Cube (0,1,1)
-	Cube_rate(rox, roy, roz, 0, 1, 1);
-	Draw_Cube(50.0, 150.0, -50.0, 50.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-
-	//缓存
-	glPushMatrix();
-
-	//x轴上两端的Cube (2,1,1)
-	Cube_rate(rox, roy, roz, 2, 1, 1);
-	Draw_Cube(-150.0, -50.0, -50.0, 50.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-
-	//缓存
-	glPushMatrix();
-
-	//y轴上两端的Cube (1,0,1)
-	Cube_rate(rox, roy, roz, 1, 0, 1);
-	Draw_Cube(-50.0, 50.0, 50.0, 150.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-
-	//缓存
-	glPushMatrix();
-
-	//y轴上两端的Cube (1,2,1)
-	Cube_rate(rox, roy, roz, 1, 2, 1);
-	Draw_Cube(-50.0, 50.0, -150.0, -50.0, -50.0, 50.0);
-
-	glPopMatrix();
-	
-	
-	//缓存
-	glPushMatrix();
-
-	//x，y轴上的四个Cube (0,0,1)
-	Cube_rate(rox, roy, roz, 0, 0, 1);
-	Draw_Cube(50.0, 150.0, 50.0, 150.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-
-	//缓存
-	glPushMatrix();
-
-	//x，y轴上的四个Cube (0,2,1)
-	Cube_rate(rox, roy, roz, 0, 2, 1);
-	Draw_Cube(50.0, 150.0, -150.0, -50.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-
-	//缓存
-	glPushMatrix();
-
-	//x，y轴上的四个Cube (2,0,1)
-	Cube_rate(rox, roy, roz, 2, 0, 1);
-	Draw_Cube(-150.0, -50.0, 50.0, 150.0, -50.0, 50.0);
-
-	glPopMatrix();
-
-	
-	//缓存
-	glPushMatrix();
-
-	//x，y轴上的四个Cube (2,2,1)
-	Cube_rate(rox, roy, roz, 2, 2, 1);
-	Draw_Cube(-150.0, -50.0, -150.0, -50.0, -50.0, 50.0);
-
-	glPopMatrix();
+	Cube_00();
+	Cube_01();
+	Cube_02();
 
 	
 
@@ -149,39 +62,87 @@ void KeyBoard(unsigned char key, int x, int y)
 		roy[0][0][1] = (roy[0][0][1] + 90) % 360;
 		roy[1][0][1] = (roy[1][0][1] + 90) % 360;
 		roy[2][0][1] = (roy[2][0][1] + 90) % 360;
+
+		roy[0][0][0] = (roy[0][0][0] + 90) % 360;
+		roy[1][0][0] = (roy[1][0][0] + 90) % 360;
+		roy[2][0][0] = (roy[2][0][0] + 90) % 360;
+
+		roy[0][0][2] = (roy[0][0][2] + 90) % 360;
+		roy[1][0][2] = (roy[1][0][2] + 90) % 360;
+		roy[2][0][2] = (roy[2][0][2] + 90) % 360;
 		glutPostRedisplay();
 		break;
-	case 'A':
+	case 'q':
 		roy[0][0][1] = (roy[0][0][1] - 90) % 360;
 		roy[1][0][1] = (roy[1][0][1] - 90) % 360;
 		roy[2][0][1] = (roy[2][0][1] - 90) % 360;
+
+		roy[0][0][0] = (roy[0][0][0] - 90) % 360;
+		roy[1][0][0] = (roy[1][0][0] - 90) % 360;
+		roy[2][0][0] = (roy[2][0][0] - 90) % 360;
+
+		roy[0][0][2] = (roy[0][0][2] - 90) % 360;
+		roy[1][0][2] = (roy[1][0][2] - 90) % 360;
+		roy[2][0][2] = (roy[2][0][2] - 90) % 360;
 		glutPostRedisplay();
 		break;
 	case 's':
 		roy[0][1][1] = (roy[0][1][1] + 90) % 360;
 		roy[1][1][1] = (roy[1][1][1] + 90) % 360;
 		roy[2][1][1] = (roy[2][1][1] + 90) % 360;
+
+		roy[0][1][0] = (roy[0][1][0] + 90) % 360;
+		roy[1][1][0] = (roy[1][1][0] + 90) % 360;
+		roy[2][1][0] = (roy[2][1][0] + 90) % 360;
+
+		roy[0][1][2] = (roy[0][1][2] + 90) % 360;
+		roy[1][1][2] = (roy[1][1][2] + 90) % 360;
+		roy[2][1][2] = (roy[2][1][2] + 90) % 360;
 		glutPostRedisplay();
 		break;
-	case 'S':
+	case 'w':
 		roy[0][1][1] = (roy[0][1][1] - 90) % 360;
 		roy[1][1][1] = (roy[1][1][1] - 90) % 360;
 		roy[2][1][1] = (roy[2][1][1] - 90) % 360;
+
+		roy[0][1][0] = (roy[0][1][0] - 90) % 360;
+		roy[1][1][0] = (roy[1][1][0] - 90) % 360;
+		roy[2][1][0] = (roy[2][1][0] - 90) % 360;
+
+		roy[0][1][2] = (roy[0][1][2] - 90) % 360;
+		roy[1][1][2] = (roy[1][1][2] - 90) % 360;
+		roy[2][1][2] = (roy[2][1][2] - 90) % 360;
 		glutPostRedisplay();
 		break;
 	case 'd':
 		roy[0][2][1] = (roy[0][2][1] + 90) % 360;
 		roy[1][2][1] = (roy[1][2][1] + 90) % 360;
 		roy[2][2][1] = (roy[2][2][1] + 90) % 360;
-		glutPostRedisplay();
-		break;
-	case 'D':
-		roy[0][1][1] = (roy[0][1][1] - 90) % 360;
-		roy[1][1][1] = (roy[1][1][1] - 90) % 360;
-		roy[2][1][1] = (roy[2][1][1] - 90) % 360;
+
+		roy[0][2][0] = (roy[0][2][0] + 90) % 360;
+		roy[1][2][0] = (roy[1][2][0] + 90) % 360;
+		roy[2][2][0] = (roy[2][2][0] + 90) % 360;
+
+		roy[0][2][2] = (roy[0][2][2] + 90) % 360;
+		roy[1][2][2] = (roy[1][2][2] + 90) % 360;
+		roy[2][2][2] = (roy[2][2][2] + 90) % 360;
 		glutPostRedisplay();
 		break;
 	case 'e':
+		roy[0][2][1] = (roy[0][2][1] - 90) % 360;
+		roy[1][2][1] = (roy[1][2][1] - 90) % 360;
+		roy[2][2][1] = (roy[2][2][1] - 90) % 360;
+
+		roy[0][2][0] = (roy[0][2][0] - 90) % 360;
+		roy[1][2][0] = (roy[1][2][0] - 90) % 360;
+		roy[2][2][0] = (roy[2][2][0] - 90) % 360;
+
+		roy[0][2][2] = (roy[0][2][2] - 90) % 360;
+		roy[1][2][2] = (roy[1][2][2] - 90) % 360;
+		roy[2][2][2] = (roy[2][2][2] - 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'r':
 		for (int i = 0; i < 3; i++)
 			for (int j = 0;j < 3;j++)
 				for (int k = 0; k < 3; k++)
@@ -189,6 +150,39 @@ void KeyBoard(unsigned char key, int x, int y)
 					rox[i][j][k] = 0;
 					roy[i][j][k] = 0;
 					roz[i][j][k] = 0;
+				}
+		glutPostRedisplay();
+		break;
+	case '1':
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				for (int k = 0; k < 3; k++)
+				{
+					rox[i][j][k] = (rox[i][j][k] + 45) % 360;;
+					//roy[i][j][k] = 0;
+					//roz[i][j][k] = 0;
+				}
+		glutPostRedisplay();
+		break;
+	case '2':
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				for (int k = 0; k < 3; k++)
+				{
+					roy[i][j][k] = (roy[i][j][k] + 45) % 360;;
+					//roy[i][j][k] = 0;
+					//roz[i][j][k] = 0;
+				}
+		glutPostRedisplay();
+		break;
+	case '3':
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				for (int k = 0; k < 3; k++)
+				{
+					roz[i][j][k] = (roz[i][j][k] + 90) % 360;;
+					//roy[i][j][k] = 0;
+					//roz[i][j][k] = 0;
 				}
 		glutPostRedisplay();
 		break;
