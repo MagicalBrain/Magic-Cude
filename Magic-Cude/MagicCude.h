@@ -2,25 +2,30 @@
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
 
+//每个块的旋转变量
 int rox[3][3][3] = {};
 int roy[3][3][3] = {};
 int roz[3][3][3] = {};
 
+//绕X轴旋转的块
 typedef struct Rote_X
 {
 	int **rotex;
 }*RoteX;
 
+//绕Y轴旋转的块
 typedef struct Rote_Y
 {
 	int **rotey;
 }*RoteY;
 
+//绕Z轴旋转的块
 typedef struct Rote_Z
 {
 	int **rotez;
 }*RoteZ;
 
+//绘画块的函数
 void Draw_Cube(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2, GLfloat z1, GLfloat z2)
 {	//桌子由立方体组成，已知六个参数即可构造八个顶点
 	int i, j;
@@ -81,6 +86,7 @@ void Draw_Cube(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2, GLfloat z1, GLflo
 	glEnd();
 }
 
+//给每个块设置旋转变量
 void Cube_rate(int rox[][3][3],int roy[][3][3],int roz[][3][3],int n1, int n2, int n3)
 {
 	glRotatef((GLfloat)rox[n1][n2][n3], 1.0, 0.0, 0.0);
@@ -88,7 +94,7 @@ void Cube_rate(int rox[][3][3],int roy[][3][3],int roz[][3][3],int n1, int n2, i
 	glRotatef((GLfloat)roz[n1][n2][n3], 0.0, 0.0, 1.0);
 }
 
-
+//画第一层块
 void Cube_01()
 {
 	//缓存
@@ -183,7 +189,7 @@ void Cube_01()
 	glPopMatrix();
 }
 
-
+//画中间一层的块
 void Cube_00()
 {
 	//缓存
@@ -278,7 +284,7 @@ void Cube_00()
 	glPopMatrix();
 }
 
-
+//画最后一层的块
 void Cube_02()
 {
 	//缓存
