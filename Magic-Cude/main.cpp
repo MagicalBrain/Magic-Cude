@@ -143,6 +143,15 @@ void KeyBoard(unsigned char key, int x, int y)
 		glutPostRedisplay();
 		break;
 	case 'q':
+		Init_Rote();
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				*x1.rotex[i][j] = (*x1.rotex[i][j] + 90) % 360;
+			}
+		}
+		/*
 		rox[0][0][0] = (rox[0][0][0] + 90) % 360;
 		rox[0][1][0] = (rox[0][1][0] + 90) % 360;
 		rox[0][2][0] = (rox[0][2][0] + 90) % 360;
@@ -154,6 +163,8 @@ void KeyBoard(unsigned char key, int x, int y)
 		rox[0][0][2] = (rox[0][0][2] + 90) % 360;
 		rox[0][1][2] = (rox[0][1][2] + 90) % 360;
 		rox[0][2][2] = (rox[0][2][2] + 90) % 360;
+		*/
+		
 		glutPostRedisplay();
 		break;
 	case 'z':

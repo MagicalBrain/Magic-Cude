@@ -1,6 +1,9 @@
 #pragma once
 #include "Dependencies\glew\glew.h"
 #include "Dependencies\freeglut\freeglut.h"
+#include <iostream>
+
+using namespace std;
 
 //每个块的旋转变量
 int rox[3][3][3] = {};
@@ -10,20 +13,24 @@ int roz[3][3][3] = {};
 //绕X轴旋转的块
 typedef struct Rote_X
 {
-	int **rotex;
-}*RoteX;
+	int *rotex[3][3];
+}RoteX;
 
 //绕Y轴旋转的块
 typedef struct Rote_Y
 {
-	int **rotey;
-}*RoteY;
+	int *rotey[3][3];
+}RoteY;
 
 //绕Z轴旋转的块
 typedef struct Rote_Z
 {
-	int **rotez;
-}*RoteZ;
+	int *rotez[3][3];
+}RoteZ;
+
+RoteX x1, x2, x3;
+//RoteY y1, y2, y3;
+RoteZ z1, z2, z3;
 
 //绘画块的函数
 void Draw_Cube(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2, GLfloat z1, GLfloat z2)
@@ -379,6 +386,20 @@ void Cube_02()
 	glPopMatrix();
 }
 
+//初始化旋转块指针
+void Init_Rote()
+{	
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			x1.rotex[i][j] = &rox[0][j][i];
+			//cout << x1->rotex[i][j] << endl;
+		}
+	}
+}
+
+
 void XRote()
 {
 	rox[0][0][0] = (rox[0][0][0] - 90) % 360;
@@ -392,4 +413,20 @@ void XRote()
 	rox[0][0][2] = (rox[0][0][2] - 90) % 360;
 	rox[0][1][2] = (rox[0][1][2] - 90) % 360;
 	rox[0][2][2] = (rox[0][2][2] - 90) % 360;
+}
+
+
+void YRote()
+{
+	roy[0][0][1] = (roy[0][0][1] + 90) % 360;
+	roy[1][0][1] = (roy[1][0][1] + 90) % 360;
+	roy[2][0][1] = (roy[2][0][1] + 90) % 360;
+
+	roy[0][0][0] = (roy[0][0][0] + 90) % 360;
+	roy[1][0][0] = (roy[1][0][0] + 90) % 360;
+	roy[2][0][0] = (roy[2][0][0] + 90) % 360;
+
+	roy[0][0][2] = (roy[0][0][2] + 90) % 360;
+	roy[1][0][2] = (roy[1][0][2] + 90) % 360;
+	roy[2][0][2] = (roy[2][0][2] + 90) % 360;
 }
