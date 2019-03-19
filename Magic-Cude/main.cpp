@@ -72,7 +72,7 @@ void KeyBoard(unsigned char key, int x, int y)
 		roy[2][0][2] = (roy[2][0][2] + 90) % 360;
 		glutPostRedisplay();
 		break;
-	case 'q':
+	case 'j':
 		roy[0][0][1] = (roy[0][0][1] - 90) % 360;
 		roy[1][0][1] = (roy[1][0][1] - 90) % 360;
 		roy[2][0][1] = (roy[2][0][1] - 90) % 360;
@@ -100,7 +100,7 @@ void KeyBoard(unsigned char key, int x, int y)
 		roy[2][1][2] = (roy[2][1][2] + 90) % 360;
 		glutPostRedisplay();
 		break;
-	case 'w':
+	case 'k':
 		roy[0][1][1] = (roy[0][1][1] - 90) % 360;
 		roy[1][1][1] = (roy[1][1][1] - 90) % 360;
 		roy[2][1][1] = (roy[2][1][1] - 90) % 360;
@@ -128,7 +128,7 @@ void KeyBoard(unsigned char key, int x, int y)
 		roy[2][2][2] = (roy[2][2][2] + 90) % 360;
 		glutPostRedisplay();
 		break;
-	case 'e':
+	case 'l':
 		roy[0][2][1] = (roy[0][2][1] - 90) % 360;
 		roy[1][2][1] = (roy[1][2][1] - 90) % 360;
 		roy[2][2][1] = (roy[2][2][1] - 90) % 360;
@@ -140,6 +140,20 @@ void KeyBoard(unsigned char key, int x, int y)
 		roy[0][2][2] = (roy[0][2][2] - 90) % 360;
 		roy[1][2][2] = (roy[1][2][2] - 90) % 360;
 		roy[2][2][2] = (roy[2][2][2] - 90) % 360;
+		glutPostRedisplay();
+		break;
+	case 'q':
+		rox[0][0][0] = (rox[0][0][0] - 90) % 360;
+		rox[0][1][0] = (rox[0][1][0] - 90) % 360;
+		rox[0][2][0] = (rox[0][2][0] - 90) % 360;
+
+		rox[0][0][1] = (rox[0][0][1] - 90) % 360;
+		rox[0][1][1] = (rox[0][1][1] - 90) % 360;
+		rox[0][2][1] = (rox[0][2][1] - 90) % 360;
+
+		rox[0][0][2] = (rox[0][0][2] - 90) % 360;
+		rox[0][1][2] = (rox[0][1][2] - 90) % 360;
+		rox[0][2][2] = (rox[0][2][2] - 90) % 360;
 		glutPostRedisplay();
 		break;
 	case 'r':

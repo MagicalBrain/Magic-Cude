@@ -6,6 +6,21 @@ int rox[3][3][3] = {};
 int roy[3][3][3] = {};
 int roz[3][3][3] = {};
 
+typedef struct Rote_X
+{
+	int **rotex;
+}*RoteX;
+
+typedef struct Rote_Y
+{
+	int **rotey;
+}*RoteY;
+
+typedef struct Rote_Z
+{
+	int **rotez;
+}*RoteZ;
+
 void Draw_Cube(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2, GLfloat z1, GLfloat z2)
 {	//桌子由立方体组成，已知六个参数即可构造八个顶点
 	int i, j;
