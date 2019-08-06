@@ -57,8 +57,16 @@ void OnReshape(int w, int h)
 void KeyBoard(unsigned char key, int x, int y)
 //必须得有这三个参数
 {
+	//Init_Rote();
 	switch (key) {
 	case 'a':
+		//YRote10();
+		
+		glEnable(GL_NORMALIZE);
+		glutPostRedisplay();
+		c[0][0][0].roy = (c[0][0][0].roy + 90) % 360;
+
+		/*
 		roy[0][0][1] = (roy[0][0][1] + 90) % 360;
 		roy[1][0][1] = (roy[1][0][1] + 90) % 360;
 		roy[2][0][1] = (roy[2][0][1] + 90) % 360;
@@ -70,6 +78,8 @@ void KeyBoard(unsigned char key, int x, int y)
 		roy[0][0][2] = (roy[0][0][2] + 90) % 360;
 		roy[1][0][2] = (roy[1][0][2] + 90) % 360;
 		roy[2][0][2] = (roy[2][0][2] + 90) % 360;
+		*/
+		
 		glutPostRedisplay();
 		break;
 	case 'j':
@@ -143,15 +153,19 @@ void KeyBoard(unsigned char key, int x, int y)
 		glutPostRedisplay();
 		break;
 	case 'q':
-		Init_Rote();
+		//XRote10();
+		glEnable(GL_NORMALIZE);
+		c[0][0][0].rox = (c[0][0][0].rox + 90) % 360;
+		
+		/*
 		for (int i = 0; i < 3; i++)
 		{
-			for (int j = 0; j < 3; j++)
-			{
-				*x1.rotex[i][j] = (*x1.rotex[i][j] + 90) % 360;
-			}
+		for (int j = 0; j < 3; j++)
+		{
+		*x1.rotex[i][j] = (*x1.rotex[i][j] + 90) % 360;
 		}
-		/*
+		}
+
 		rox[0][0][0] = (rox[0][0][0] + 90) % 360;
 		rox[0][1][0] = (rox[0][1][0] + 90) % 360;
 		rox[0][2][0] = (rox[0][2][0] + 90) % 360;
@@ -165,7 +179,7 @@ void KeyBoard(unsigned char key, int x, int y)
 		rox[0][2][2] = (rox[0][2][2] + 90) % 360;
 		*/
 		
-		glutPostRedisplay();
+		//glutPostRedisplay();
 		break;
 	case 'z':
 		roz[0][0][0] = (roz[0][0][0] + 90) % 360;
@@ -268,4 +282,5 @@ int main(int argc, char *argv[])
 	glutKeyboardFunc(KeyBoard);
 	SetupLights();	//调用光照函数，否则会没有立体感
 	glutMainLoop();//显示所有并进入等待状态
+	;
 }

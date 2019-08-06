@@ -6,31 +6,32 @@
 using namespace std;
 
 //每个块的旋转变量
+typedef struct cube
+{
+	int rox, roy, roz;
+	int x, y, z;
+	int up, down, right, left;
+}cube;
+
+cube c[3][3][3];
+
 int rox[3][3][3] = {};
 int roy[3][3][3] = {};
 int roz[3][3][3] = {};
 
+typedef struct RCube
+{
+	int *ro;
+	int x, y, z;
+}RCube;
+
 //绕X轴旋转的块
 typedef struct Rote_X
 {
-	int *rotex[3][3];
+	RCube *rotex[3][3];
 }RoteX;
 
-//绕Y轴旋转的块
-typedef struct Rote_Y
-{
-	int *rotey[3][3];
-}RoteY;
 
-//绕Z轴旋转的块
-typedef struct Rote_Z
-{
-	int *rotez[3][3];
-}RoteZ;
-
-RoteX x1, x2, x3;
-//RoteY y1, y2, y3;
-RoteZ z1, z2, z3;
 
 //绘画块的函数
 void Draw_Cube(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2, GLfloat z1, GLfloat z2)
@@ -94,11 +95,14 @@ void Draw_Cube(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2, GLfloat z1, GLflo
 }
 
 //给每个块设置旋转变量
-void Cube_rate(int rox[][3][3],int roy[][3][3],int roz[][3][3],int n1, int n2, int n3)
+void Cube_rate(int n1, int n2, int n3)
 {
-	glRotatef((GLfloat)rox[n1][n2][n3], 1.0, 0.0, 0.0);
-	glRotatef((GLfloat)roy[n1][n2][n3], 0.0, 1.0, 0.0);
-	glRotatef((GLfloat)roz[n1][n2][n3], 0.0, 0.0, 1.0);
+	glRotatef((GLfloat)c[n1][n2][n3].rox, 1.0, 0.0, 0.0);
+	glRotatef((GLfloat)c[n1][n2][n3].roy, 0.0, 1.0, 0.0);
+	glRotatef((GLfloat)c[n1][n2][n3].roz, 0.0, 0.0, 1.0);
+	c[n1][n2][n3].x = n1;
+	c[n1][n2][n3].y = n2;
+	c[n1][n2][n3].z = n3;
 }
 
 //画第一层块
@@ -108,7 +112,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//原点上的（中间的）Cube (1,1,1)
-	Cube_rate(rox, roy, roz, 1, 1, 1);
+	Cube_rate( 1, 1, 1);
 	Draw_Cube(-50.0, 50.0, -50.0, 50.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -118,7 +122,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//x轴上两端的Cube (0,1,1)
-	Cube_rate(rox, roy, roz, 0, 1, 1);
+	Cube_rate( 0, 1, 1);
 	Draw_Cube(50.0, 150.0, -50.0, 50.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -128,7 +132,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//x轴上两端的Cube (2,1,1)
-	Cube_rate(rox, roy, roz, 2, 1, 1);
+	Cube_rate( 2, 1, 1);
 	Draw_Cube(-150.0, -50.0, -50.0, 50.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -138,7 +142,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//y轴上两端的Cube (1,0,1)
-	Cube_rate(rox, roy, roz, 1, 0, 1);
+	Cube_rate( 1, 0, 1);
 	Draw_Cube(-50.0, 50.0, 50.0, 150.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -148,7 +152,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//y轴上两端的Cube (1,2,1)
-	Cube_rate(rox, roy, roz, 1, 2, 1);
+	Cube_rate( 1, 2, 1);
 	Draw_Cube(-50.0, 50.0, -150.0, -50.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -158,7 +162,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (0,0,1)
-	Cube_rate(rox, roy, roz, 0, 0, 1);
+	Cube_rate( 0, 0, 1);
 	Draw_Cube(50.0, 150.0, 50.0, 150.0, -50.0, 50.0);
 
 
@@ -170,7 +174,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (0,2,1)
-	Cube_rate(rox, roy, roz, 0, 2, 1);
+	Cube_rate( 0, 2, 1);
 	Draw_Cube(50.0, 150.0, -150.0, -50.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -180,7 +184,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (2,0,1)
-	Cube_rate(rox, roy, roz, 2, 0, 1);
+	Cube_rate( 2, 0, 1);
 	Draw_Cube(-150.0, -50.0, 50.0, 150.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -190,7 +194,7 @@ void Cube_01()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (2,2,1)
-	Cube_rate(rox, roy, roz, 2, 2, 1);
+	Cube_rate( 2, 2, 1);
 	Draw_Cube(-150.0, -50.0, -150.0, -50.0, -50.0, 50.0);
 
 	glPopMatrix();
@@ -203,7 +207,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//原点上的（中间的）Cube (1,1,0)
-	Cube_rate(rox, roy, roz, 1, 1, 0);
+	Cube_rate( 1, 1, 0);
 	Draw_Cube(-50.0, 50.0, -50.0, 50.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -213,7 +217,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//x轴上两端的Cube (0,1,0)
-	Cube_rate(rox, roy, roz, 0, 1, 0);
+	Cube_rate( 0, 1, 0);
 	Draw_Cube(50.0, 150.0, -50.0, 50.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -223,7 +227,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//x轴上两端的Cube (2,1,0)
-	Cube_rate(rox, roy, roz, 2, 1, 0);
+	Cube_rate( 2, 1, 0);
 	Draw_Cube(-150.0, -50.0, -50.0, 50.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -233,7 +237,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//y轴上两端的Cube (1,0,0)
-	Cube_rate(rox, roy, roz, 1, 0, 0);
+	Cube_rate( 1, 0, 0);
 	Draw_Cube(-50.0, 50.0, 50.0, 150.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -243,7 +247,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//y轴上两端的Cube (1,2,0)
-	Cube_rate(rox, roy, roz, 1, 2, 0);
+	Cube_rate( 1, 2, 0);
 	Draw_Cube(-50.0, 50.0, -150.0, -50.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -253,7 +257,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (0,0,0)
-	Cube_rate(rox, roy, roz, 0, 0, 0);
+	Cube_rate( 0, 0, 0);
 	Draw_Cube(50.0, 150.0, 50.0, 150.0, 50.0, 150.0);
 
 
@@ -265,7 +269,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (0,2,0)
-	Cube_rate(rox, roy, roz, 0, 2, 0);
+	Cube_rate( 0, 2, 0);
 	Draw_Cube(50.0, 150.0, -150.0, -50.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -275,7 +279,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (2,0,0)
-	Cube_rate(rox, roy, roz, 2, 0, 0);
+	Cube_rate( 2, 0, 0);
 	Draw_Cube(-150.0, -50.0, 50.0, 150.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -285,7 +289,7 @@ void Cube_00()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (2,2,0)
-	Cube_rate(rox, roy, roz, 2, 2, 0);
+	Cube_rate( 2, 2, 0);
 	Draw_Cube(-150.0, -50.0, -150.0, -50.0, 50.0, 150.0);
 
 	glPopMatrix();
@@ -298,7 +302,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//原点上的（中间的）Cube (1,1,2)
-	Cube_rate(rox, roy, roz, 1, 1, 2);
+	Cube_rate( 1, 1, 2);
 	Draw_Cube(-50.0, 50.0, -50.0, 50.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -308,7 +312,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//x轴上两端的Cube (0,1,2)
-	Cube_rate(rox, roy, roz, 0, 1, 2);
+	Cube_rate( 0, 1, 2);
 	Draw_Cube(50.0, 150.0, -50.0, 50.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -318,7 +322,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//x轴上两端的Cube (2,1,2)
-	Cube_rate(rox, roy, roz, 2, 1, 2);
+	Cube_rate( 2, 1, 2);
 	Draw_Cube(-150.0, -50.0, -50.0, 50.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -328,7 +332,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//y轴上两端的Cube (1,0,2)
-	Cube_rate(rox, roy, roz, 1, 0, 2);
+	Cube_rate( 1, 0, 2);
 	Draw_Cube(-50.0, 50.0, 50.0, 150.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -338,7 +342,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//y轴上两端的Cube (1,2,2)
-	Cube_rate(rox, roy, roz, 1, 2, 2);
+	Cube_rate( 1, 2, 2);
 	Draw_Cube(-50.0, 50.0, -150.0, -50.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -348,7 +352,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (0,0,2)
-	Cube_rate(rox, roy, roz, 0, 0, 2);
+	Cube_rate( 0, 0, 2);
 	Draw_Cube(50.0, 150.0, 50.0, 150.0, -150.0, -50.0);
 
 
@@ -360,7 +364,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (0,2,2)
-	Cube_rate(rox, roy, roz, 0, 2, 2);
+	Cube_rate( 0, 2, 2);
 	Draw_Cube(50.0, 150.0, -150.0, -50.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -370,7 +374,7 @@ void Cube_02()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (2,0,2)
-	Cube_rate(rox, roy, roz, 2, 0, 2);
+	Cube_rate( 2, 0, 2);
 	Draw_Cube(-150.0, -50.0, 50.0, 150.0, -150.0, -50.0);
 
 	glPopMatrix();
@@ -380,53 +384,187 @@ void Cube_02()
 	glPushMatrix();
 
 	//x，y轴上的四个Cube (2,2,2)
-	Cube_rate(rox, roy, roz, 2, 2, 2);
+	Cube_rate( 2, 2, 2);
 	Draw_Cube(-150.0, -50.0, -150.0, -50.0, -150.0, -50.0);
 
 	glPopMatrix();
 }
 
 //初始化旋转块指针
+/*
 void Init_Rote()
-{	
+{
+for (int i = 0; i < 3; i++)
+{
+for (int j = 0; j < 3; j++)
+{
+x1.rotex[i][j] = (RCube*)malloc(sizeof(RCube));
+x1.rotex[i][j]->ro = &rox[0][j][i];
+x1.rotex[i][j]->x = 0;
+x1.rotex[i][j]->y = j;
+x1.rotex[i][j]->z = i;
+
+x2.rotex[i][j] = (RCube*)malloc(sizeof(RCube));
+x2.rotex[i][j]->ro = &rox[1][j][i];
+x2.rotex[i][j]->x = 1;
+x2.rotex[i][j]->y = j;
+x2.rotex[i][j]->z = i;
+
+x3.rotex[i][j] = (RCube*)malloc(sizeof(RCube));
+x3.rotex[i][j]->ro = &rox[2][j][i];
+x3.rotex[i][j]->x = 2;
+x3.rotex[i][j]->y = j;
+x3.rotex[i][j]->z = i;
+
+y01.rotey[i][j] = (RCube*)malloc(sizeof(RCube));
+y01.rotey[i][j]->ro = &roy[j][0][i];
+y01.rotey[i][j]->x = j;
+y01.rotey[i][j]->y = 0;
+y01.rotey[i][j]->z = i;
+
+y02.rotey[i][j] = (RCube*)malloc(sizeof(RCube));
+y02.rotey[i][j]->ro = &roy[j][1][i];
+y02.rotey[i][j]->x = j;
+y02.rotey[i][j]->y = 1;
+y02.rotey[i][j]->z = i;
+
+y03.rotey[i][j] = (RCube*)malloc(sizeof(RCube));
+y03.rotey[i][j]->ro = &roy[j][2][i];
+y03.rotey[i][j]->x = j;
+y03.rotey[i][j]->y = 2;
+y03.rotey[i][j]->z = i;
+
+z1.rotez[i][j] = (RCube*)malloc(sizeof(RCube));
+z1.rotez[i][j]->ro = &roz[j][i][0];
+z1.rotez[i][j]->x = j;
+z1.rotez[i][j]->y = i;
+z1.rotez[i][j]->z = 0;
+
+z2.rotez[i][j] = (RCube*)malloc(sizeof(RCube));
+z2.rotez[i][j]->ro = &roz[j][i][1];
+z2.rotez[i][j]->x = j;
+z2.rotez[i][j]->y = i;
+z2.rotez[i][j]->z = 1;
+
+z3.rotez[i][j] = (RCube*)malloc(sizeof(RCube));
+z3.rotez[i][j]->ro = &roz[j][i][2];
+z3.rotez[i][j]->x = j;
+z3.rotez[i][j]->y = i;
+z3.rotez[i][j]->z = 2;
+//cout << x1->rotex[i][j] << endl;
+}
+}
+}
+*/
+
+
+
+void XRote10()
+{
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
 		{
-			x1.rotex[i][j] = &rox[0][j][i];
-			//cout << x1->rotex[i][j] << endl;
+			for (int k = 0; k < 3; k++)
+			{
+				if (c[i][j][k].x == 0)
+					c[i][j][k].rox = (c[i][j][k].rox + 90) % 360;
+			}
+		}
+	}
+
+}
+
+
+void XRote11()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			//*x1.rotex[i][j]->ro = (*x1.rotex[i][j]->ro - 90) % 360;
 		}
 	}
 }
 
 
-void XRote()
+void XRote20()
 {
-	rox[0][0][0] = (rox[0][0][0] - 90) % 360;
-	rox[0][1][0] = (rox[0][1][0] - 90) % 360;
-	rox[0][2][0] = (rox[0][2][0] - 90) % 360;
-
-	rox[0][0][1] = (rox[0][0][1] - 90) % 360;
-	rox[0][1][1] = (rox[0][1][1] - 90) % 360;
-	rox[0][2][1] = (rox[0][2][1] - 90) % 360;
-
-	rox[0][0][2] = (rox[0][0][2] - 90) % 360;
-	rox[0][1][2] = (rox[0][1][2] - 90) % 360;
-	rox[0][2][2] = (rox[0][2][2] - 90) % 360;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			//*x2.rotex[i][j]->ro = (*x2.rotex[i][j]->ro + 90) % 360;
+		}
+	}
 }
 
 
-void YRote()
+void YRote10()
 {
-	roy[0][0][1] = (roy[0][0][1] + 90) % 360;
-	roy[1][0][1] = (roy[1][0][1] + 90) % 360;
-	roy[2][0][1] = (roy[2][0][1] + 90) % 360;
+	cube *t[8];
+	int n = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			for (int k = 0; k < 3; k++)
+			{
+				if (c[i][j][k].y == 0)
+				{
+					c[i][j][k].roy = (c[i][j][k].roy + 90) % 360;
+					if (c[i][j][k].x == c[i][j][k].z && c[i][j][k].x == 1)
+					{
+						continue;
+					}
+					else
+					{
+						t[n] = &c[i][j][k];
+						n++;
+					}
+					
+				}
+				
+			}
+			
+		}
+	}
 
-	roy[0][0][0] = (roy[0][0][0] + 90) % 360;
-	roy[1][0][0] = (roy[1][0][0] + 90) % 360;
-	roy[2][0][0] = (roy[2][0][0] + 90) % 360;
+	cube *t01, *t02;
+	t01 = t[0];
+	t02 = t[1];
+	
+	t[0]->x = t[2]->x;
+	t[0]->y = t[2]->y;
+	t[0]->z = t[2]->z;
 
-	roy[0][0][2] = (roy[0][0][2] + 90) % 360;
-	roy[1][0][2] = (roy[1][0][2] + 90) % 360;
-	roy[2][0][2] = (roy[2][0][2] + 90) % 360;
+	t[1]->x = t[4]->x;
+	t[1]->y = t[4]->y;
+	t[1]->z = t[4]->z;
+
+	t[2]->x = t[7]->x;
+	t[2]->y = t[7]->y;
+	t[2]->z = t[7]->z;
+
+	t[3]->x = t02->x;
+	t[3]->y = t02->y;
+	t[3]->z = t02->z;
+
+	t[4]->x = t[6]->x;
+	t[4]->y = t[6]->y;
+	t[4]->z = t[6]->z;
+
+	cube *t03 = t[5];
+	t[5]->x = t01->x;
+	t[5]->y = t01->y;
+	t[5]->z = t01->z;
+
+	t[6]->x = t[3]->x;
+	t[6]->y = t[3]->y;
+	t[6]->z = t[3]->z;
+
+
+	t[7]->x = t03->x;
+	t[7]->y = t03->y;
+	t[7]->z = t03->z;
 }
